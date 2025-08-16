@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+<style>
+body{font-family:'Segoe UI',sans-serif;background:#f4f6f8;margin:0;}
+header{background:#007bff;color:#fff;padding:20px;text-align:center;display:flex;align-items:center;justify-content:center;flex-direction:column;}
+header img{width:100px;height:100px;border-radius:50%;object-fit:cover;margin-bottom:10px;}
+nav{background:#fff;display:flex;justify-content:space-around;padding:10px;box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+nav a{color:#007bff;text-decoration:none;font-weight:bold;}
+main{padding:20px;text-align:center;}
+button{padding:10px 20px;border:none;border-radius:6px;background:#dc3545;color:#fff;cursor:pointer;}
+button:hover{background:#c82333;}
+</style>
+</head>
+<body>
+<header>
+<img src="images.jpeg" alt="Logo">
+<h2 id="welcomeText">Selamat Datang!</h2>
+</header>
+<nav>
+<a href="#">Home</a>
+<a href="#">Profil</a>
+<a href="#" onclick="logout()">Logout</a>
+</nav>
+<main>
+<p>Ini adalah dashboard pengguna.</p>
+</main>
+
+<script>
+document.getElementById("welcomeText").innerText = "Selamat Datang, " + (localStorage.getItem("userNama") || "User");
+
+function logout(){
+  localStorage.removeItem("userNama");
+  window.location.href="index.html";
+}
+</script>
+</body>
+</html>
