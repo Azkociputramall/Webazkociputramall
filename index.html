@@ -1,88 +1,48 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .container {
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 300px;
-      text-align: center;
-    }
-    .logo {
-      display: block;
-      margin: 0 auto 20px;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #ccc;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      background: #007bff;
-      color: #fff;
-      font-size: 16px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    button:hover { background: #0056b3; }
-    a { display: block; margin-top: 10px; color: #007bff; text-decoration: none; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<style>
+  body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#6a11cb,#2575fc);display:flex;justify-content:center;align-items:center;height:100vh;margin:0;}
+  .container{background:#fff;padding:40px;border-radius:15px;width:350px;box-shadow:0 8px 25px rgba(0,0,0,0.2);text-align:center;}
+  .logo{display:block;margin:0 auto 25px;width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid #007bff;}
+  h2{margin-bottom:20px;color:#333;}
+  input{width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid #ccc;font-size:14px;}
+  button{width:100%;padding:12px;border-radius:8px;border:none;background:#007bff;color:#fff;font-size:16px;cursor:pointer;margin-top:10px;transition:0.3s;}
+  button:hover{background:#0056b3;}
+  a{display:block;margin-top:15px;color:#007bff;text-decoration:none;font-size:14px;}
+</style>
 </head>
 <body>
-  <div class="container">
-    <img src="images.jpeg" alt="Logo" class="logo">
-    <h2>Login</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-    <a href="register.html">Daftar Akun</a>
-  </div>
+<div class="container">
+  <img src="images.jpeg" alt="Logo" class="logo">
+  <h2>Login</h2>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <a href="register.html">Belum punya akun? Daftar</a>
+</div>
 
-  <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbz0z5wGbOslqb1s-sFJznJV8iHmlFS9Q7lxRosxrFvFsVYCD32Lqy-7kV4dDBBZuvo8/exec";
+<script>
+const API_URL="https://script.google.com/macros/s/AKfycbz0z5wGbOslqb1s-sFJznJV8iHmlFS9Q7lxRosxrFvFsVYCD32Lqy-7kV4dDBBZuvo8/exec";
 
-    function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+function login(){
+  const email=document.getElementById("email").value;
+  const password=document.getElementById("password").value;
 
-      fetch(`${API_URL}?action=login`, {
-        method: "POST",
-        body: JSON.stringify({ email, password })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if(data.status){
-          alert("Login berhasil! Selamat datang "+data.nama);
-          window.location.href = "welcome.html";
-        } else {
-          alert(data.message);
-        }
-      });
-    }
-  </script>
+  fetch(`${API_URL}?action=login&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`)
+    .then(res=>res.json())
+    .then(data=>{
+      if(data.status){
+        localStorage.setItem("userNama", data.nama);
+        window.location.href="dashboard.html";
+      } else {
+        alert(data.message);
+      }
+    });
+}
+</script>
 </body>
 </html>
